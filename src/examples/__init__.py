@@ -41,4 +41,5 @@ from . import repo
 from . import user
 
 from .app import GithubApp
+from .app_extra import GithubAppExtra
 from .base import get_api

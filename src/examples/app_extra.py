@@ -41,7 +41,8 @@ import appier
 
 from . import base
 
-class GithubApp(appier.WebApp):
+
+class GithubAppExtra(appier.WebApp):
 
     def __init__(self, *args, **kwargs):
         appier.WebApp.__init__(
@@ -120,7 +121,8 @@ class GithubApp(appier.WebApp):
         access_token = self.session.get("gh.access_token", None)
         if access_token: return
         api = base.get_api()
-        return api.oauth_authorize()
+        if api.is_oauth(): return api.oauth_authorize()
+        return None
 
     def get_api(self):
         access_token = self.session and self.session.get("gh.access_token", None)
@@ -129,5 +131,5 @@ class GithubApp(appier.WebApp):
         return api
 
 if __name__ == "__main__":
-    app = GithubApp()
+    app = GithubAppExtra()
     app.serve()
